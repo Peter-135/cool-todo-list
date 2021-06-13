@@ -12,12 +12,17 @@ body {
   width: 80%;
   margin: auto;
   font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.less-spacing {
+  line-height: 90%;
 }
 
 h1,
 p {
-  color: #ffffff;
-  font-weight: 300;
+  color: white;
+  font-weight: 100;
 }
 
 h1 {
@@ -34,10 +39,25 @@ h1 {
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.4);
   border-width: thin;
-  /* border: white; */
+}
+
+button {
+  color: white;
+  background-color: #f56464;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 15px 32px 15px 32px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.4);
+  border-width: thin;
 }
 
 .input-styling {
+  padding: 8px 5px 12px 5px;
+  font-size: 25px;
+  margin-right: 5px;
+}
+input {
   padding: 8px 5px 12px 5px;
   font-size: 25px;
   margin-right: 5px;
@@ -49,18 +69,19 @@ h1 {
 
 .move-to-end {
   font-size: 20px;
+  line-height: 0%;
 }
 
-.todo-list {
-  /* background: #e8e8e8; */
+/* .todo-list {
+  background: #e8e8e8;
   margin-top: 20px;
   background: none;
   border-radius: 4px;
-  /* max-width: 400px; */
+  max-width: 400px;
   max-width: 100%;
   padding: 5px;
-}
-
+} */
+/* 
 .todo {
   align-items: center;
   border-radius: 3px;
@@ -71,7 +92,7 @@ h1 {
   font-size: 30px;
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.1);
-}
+} */
 
 .app-2 {
   /* background: #209cee; */
@@ -89,23 +110,6 @@ h1 {
   flex-direction: column; */
 }
 
-.todo-2 {
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-  display: flex;
-  font-size: 12px;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  padding: 15px 10px 15px 10px;
-}
-
-.text-sizing {
-  font-size: 30px;
-  color: #ffffff;
-}
-
 /* .try-out {
   display: inline;
 } */
@@ -119,23 +123,30 @@ h1 {
 }
 
 .bin-movement {
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .edit-movement {
   margin-right: 20px;
 }
 
-.complete-movement {
+.not-complete-movement {
   margin-right: 80px;
 }
 
+.bottom-movement {
+  margin-right: 30px;
+}
+
+.complete-movement {
+  margin-right: 20px;
+}
 /* .spacing-element {
   margin-right: 470px;
 } */
 
 .submit-edit {
-  margin-right: 300px;
+  margin-right: 20px;
   margin-top: 0px;
   margin-bottom: 10px;
 }
@@ -148,3 +159,79 @@ button:hover {
   margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* .text-sizing {
+  font-size: 30px;
+  color: #ffffff;
+} */
+
+/* .todo-2 {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 15px 10px 15px 10px;
+} */
+
+.todo-text input {
+  padding: 4px;
+}
+
+.todo-text {
+  font-size: 24px;
+  line-height: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-left: 60px;
+}
+
+.todo-completed {
+  display: flex;
+  margin: 10px 0;
+}
+
+.todo-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#todo-list {
+  width: 100%;
+  margin: 60px auto;
+  line-height: 90%;
+}
+/* #todo-list affects sizing of whole thing where objects are */
+
+.todo {
+  border: none;
+  padding: 20px 20px 15px 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+/* .todo affects sizing of each individual object */
+
+/* .todo-text {
+  font-size: 24px;
+  line-height: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+} */
+/* 
+.todo-completed {
+  display: flex;
+  margin: 10px 0;
+} */
+/* .todo-actions {
+  display: flex;
+  justify-content: space-between;
+} */

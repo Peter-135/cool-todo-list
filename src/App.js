@@ -4,14 +4,20 @@ import "./App.css";
 import { ImBin } from "react-icons/im";
 import { FaEdit } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { BiArrowToBottom } from "react-icons/bi";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
+  const [todoEditing, setTodoEditing] = useState(null);
+  const [editingText, setEditingText] = useState("");
   // setting state, where todos is an array of object, each object is a todo
   // setTodos, is a function that sets the state of the todos
   // intialise todo with empty array []
   // todo is to keep track of current todo we are adding
+
+  // todoEditing is gonna be id of todo that I am editing.
+  // editingText keeps track of text is being edited, before submitting
 
   useEffect(() => {
     const temp = localStorage.getItem("todos");
@@ -32,12 +38,6 @@ function App() {
 
   //  if pass state or props variable in the array, it will run every time state or props is updated
 
-  const [todoEditing, setTodoEditing] = useState(null);
-  const [editingText, setEditingText] = useState("");
-
-  // todoEditing is gonna be id of todo that I am editing.
-  // editingText keeps track of text is being edited, before submitting
-
   function handleSubmit(e) {
     //function that runs when form's submitted
     e.preventDefault(); // without this form auto refreshes
@@ -57,7 +57,7 @@ function App() {
   }
 
   function deleteTodo(id) {
-    const updatedTodos = [...todos].filter((todo) => todo.id !== id);
+    let updatedTodos = [...todos].filter((todo) => todo.id !== id);
 
     setTodos(updatedTodos); //updates the todos array, which no longer has deleted item
   }
@@ -65,7 +65,7 @@ function App() {
   // to delete, filters out the todo to delete. returns to new array values that pass condition. todo is element of each object in todos array
 
   function toggleComplete(id) {
-    const updatedTodos = [...todos].map((todo) => {
+    let updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed; // turns true to false and vice-versa
       }
@@ -75,7 +75,51 @@ function App() {
     setTodos(updatedTodos);
   }
 
-  function editTodo(id) {
+  function toggleCompleteLine(id) {
+    let updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed; // turns true to false and vice-versa
+      }
+
+      return todo;
+    });
+
+    // updatedTodos.push(updatedTodos.splice(todo.id, 1)[0]);
+    setTodos(updatedTodos);
+  }
+
+  // function pushToBottom(id) {
+  //   let updateTodos = [...todos];
+  //   if (todo.id == id) {
+  //     todo.completed = true;
+  //   }
+
+  //   updateTodos.push(updateTodos.splice(todo.id, 1)[0]);
+  //   setTodos(updateTodos);
+  // }
+
+  function moveToBottom(id) {
+    let updateTodos = [...todos];
+    if (todo.id == id) {
+      todo.completed = true;
+    }
+
+    updateTodos.push(updateTodos.splice(todo.id, 1)[0]);
+    setTodos(updateTodos);
+  }
+
+  function toggleCompleteNoLine(id) {
+    let updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed; // turns true to false and vice-versa
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function submitEdits(id) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.text = editingText;
@@ -89,107 +133,178 @@ function App() {
 
   return (
     <div className="App">
-      <div className="nice-background">
-        <div className="top-styling">
-          <div>
-            <h1>Todo List</h1>
-          </div>
-          <div className="nice-underline">
-            <p>Get things done, one item at a time.</p>
-          </div>
+      <div id="todo-list">
+        <div className="less-spacing">
+          <h1>Todo List</h1>
         </div>
+        <div className="nice-underline">
+          <p>Get things done, one item at a time.</p>
+        </div>
+        {todos.map((todo) => (
+          // <div className="try-out-2">
+          <div key={todo.id} className="todo">
+            <div className="todo-text">
+              {/* <input
+                type="checkbox"
+                id="completed"
+                onChange={() => toggleComplete(todo.id)}
+                checked={todo.completed}
+              /> */}
 
-        <div className="todo-list">
-          <div className="app-2">
-            <div className="todo-list-2">
-              {todos.map((todo) => (
-                // <div className="try-out-2">
-                <div key={todo.id}>
-                  {todoEditing === todo.id ? (
-                    <input
-                      type="text"
-                      onChange={(e) => setEditingText(e.target.value)}
-                      value={editingText}
-                      className="input-styling spacing-element"
-                    />
-                  ) : (
-                    <div className="text-sizing todo-2">
-                      {todo.text}
+              {todoEditing === todo.id ? (
+                <input
+                  type="text"
+                  onChange={(e) => setEditingText(e.target.value)}
+                  value={editingText}
+                  // className="input-styling spacing-element"
+                />
+              ) : (
+                <div
+                  style={{
+                    textDecoration: todo.completed ? "line-through" : "",
+                  }}
+                >
+                  {todo.text}
+                </div>
+              )}
+            </div>
+            <div className="todo-actions">
+              {/* <button onClick={() => pushToBottom(todo.id)}>
+                Push to Bottom
+              </button> */}
+              <button
+                onClick={() => toggleComplete(todo.id)}
+                className="complete-movement"
+              >
+                Complete
+              </button>
+              {/* <button
+                onClick={() =>
+                  todo.complete == todoEditing
+                    ? toggleCompleteNoLine(todo.id)
+                    : toggleCompleteLine(todo.id)
+                }
+                className="complete-movement"
+              >
+                {todo.complete == todoEditing ? "Complete" : "Not Complete"}
+              </button> */}
+              {/* <button
+                className="complete-movement"
+                onClick={() => toggleCompleteLine(todo.id)}
+              >
+                Complete
+              </button>
+              <button
+                className="not-complete-movement"
+                onClick={() => toggleCompleteNoLine(todo.id)}
+              >
+                Not Complete
+              </button> */}
 
-                      <input
-                        type="checkbox"
-                        onChange={() => toggleComplete(todo.id)}
-                        checked={todo.completed}
-                      />
-                      <div>
+              {todo.id === todoEditing ? (
+                // <button onClick={() => submitEdits(todo.id)}>
+                //   Submit Edits
+                // </button>
+                <AiFillEdit
+                  onClick={() => submitEdits(todo.id)}
+                  color="white"
+                  size="35px"
+                  className="submit-edit"
+                />
+              ) : (
+                <FaEdit
+                  className="edit-movement"
+                  size="30px"
+                  onClick={() => setTodoEditing(todo.id)}
+                />
+              )}
+
+              <ImBin
+                color="white"
+                size="28px"
+                onClick={() => deleteTodo(todo.id)}
+                className="bin-movement"
+              />
+              <BiArrowToBottom
+                color="white"
+                size="40px"
+                className="bottom-movement"
+                onClick={() => moveToBottom(todo.id)}
+              />
+            </div>
+            {/* <div className="todo-actions"> */}
+            {/* 
+                        {todo.id === todoEditing ? () : 
+                         (<FaEdit
+                         className="edit-movement"
+                         onClick={() => setTodoEditing(todo.id)}
+                       />)}
                         <button className="button complete-movement">
                           Complete
                         </button>
 
-                        <ImBin
+                      
+                        <FaEdit
+                          className="edit-movement"
+                          onClick={() => setTodoEditing(todo.id)}
+                        />
+                          <ImBin
                           color="white"
                           size="25px"
                           onClick={() => deleteTodo(todo.id)}
                           className="bin-movement"
                         />
-                        <FaEdit
-                          className="edit-movement"
-                          onClick={() => setTodoEditing(todo.id)}
-                        />
                       </div>
                     </div>
-                  )}
+                  )} */}
 
-                  {todoEditing === todo.id ? (
+            {/* {todoEditing === todo.id ? (
                     <button
-                      onClick={() => editTodo(todo.id)}
+                      onClick={() => submitEdits(todo.id)}
                       className="button submit-edit"
                     >
                       Submit Edit
                     </button>
-                  ) : (
-                    // <AiFillEdit
-                    //   onClick={() => editTodo(todo.id)}
-                    //   color="white"
-                    //   size="35px"
-                    //   className="submit-edit"
-                    // />
-                    <button
-                      onClick={() => setTodoEditing(todo.id)}
-                      className="button no-display"
-                    >
-                      Edit Todo
-                    </button>
-                  )}
+                  ) : ( */}
+            {/* <AiFillEdit
+                      onClick={() => editTodo(todo.id)}
+                      color="white"
+                      size="35px"
+                      className="submit-edit"
+                    />
+                    // <button */}
 
-                  {/* to.id specific which one to delete */}
-                  {/* </div> */}
-                </div>
-              ))}
-            </div>
+            {/* onClick={() => setTodoEditing(todo.id)}
+                       className="button no-display"
+                   >
+                       Edit Todo
+                   </button> */}
+
+            {/* to.id specific which one to delete */}
+            {/* </div> */}
           </div>
-          {/* outputs each elements of todos array */}
-          <div className="move-to-end">
-            <p>Move done items at the end?</p>
-          </div>
-          <div className="add-todo-list-text">
-            <p>Add to the todo list</p>
-          </div>
-          <form onSubmit={handleSubmit}>
-            {/* onSubmit will run anytime a button with type submit is clicked */}
-            <input
-              type="text"
-              className="input-styling"
-              onChange={(e) => setTodo(e.target.value)}
-              value={todo}
-            />
-            {/* links value, onChange and state. so input that is typed in is value of input and is saved to the state of todo */}
-            <button type="submit" className="button">
-              Submit
-            </button>
-          </form>
-        </div>
+        ))}
       </div>
+      {/* outputs each elements of todos array */}
+      <div className="move-to-end">
+        <p>Move done items at the end?</p>
+      </div>
+      <div className="add-todo-list-text">
+        <p>Add to the todo list</p>
+      </div>
+      <form onSubmit={handleSubmit}>
+        {/* onSubmit will run anytime a button with type submit is clicked */}
+        <input
+          type="text"
+          className="input-styling"
+          onChange={(e) => setTodo(e.target.value)}
+          value={todo}
+        />
+        {/* links value, onChange and state. so input that is typed in is value of input and is saved to the state of todo */}
+        <button type="submit" className="button">
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
