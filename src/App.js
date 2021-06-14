@@ -141,22 +141,13 @@ function App() {
           <p>Get things done, one item at a time.</p>
         </div>
         {todos.map((todo) => (
-          // <div className="try-out-2">
           <div key={todo.id} className="todo">
             <div className="todo-text">
-              {/* <input
-                type="checkbox"
-                id="completed"
-                onChange={() => toggleComplete(todo.id)}
-                checked={todo.completed}
-              /> */}
-
               {todoEditing === todo.id ? (
                 <input
                   type="text"
                   onChange={(e) => setEditingText(e.target.value)}
                   value={editingText}
-                  // className="input-styling spacing-element"
                 />
               ) : (
                 <div
