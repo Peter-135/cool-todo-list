@@ -84,19 +84,8 @@ function App() {
       return todo;
     });
 
-    // updatedTodos.push(updatedTodos.splice(todo.id, 1)[0]);
     setTodos(updatedTodos);
   }
-
-  // function pushToBottom(id) {
-  //   let updateTodos = [...todos];
-  //   if (todo.id == id) {
-  //     todo.completed = true;
-  //   }
-
-  //   updateTodos.push(updateTodos.splice(todo.id, 1)[0]);
-  //   setTodos(updateTodos);
-  // }
 
   function moveToBottom(id) {
     let updateTodos = [...todos];
@@ -160,42 +149,14 @@ function App() {
               )}
             </div>
             <div className="todo-actions">
-              {/* <button onClick={() => pushToBottom(todo.id)}>
-                Push to Bottom
-              </button> */}
               <button
                 onClick={() => toggleComplete(todo.id)}
                 className="complete-movement"
               >
                 Complete
               </button>
-              {/* <button
-                onClick={() =>
-                  todo.complete == todoEditing
-                    ? toggleCompleteNoLine(todo.id)
-                    : toggleCompleteLine(todo.id)
-                }
-                className="complete-movement"
-              >
-                {todo.complete == todoEditing ? "Complete" : "Not Complete"}
-              </button> */}
-              {/* <button
-                className="complete-movement"
-                onClick={() => toggleCompleteLine(todo.id)}
-              >
-                Complete
-              </button>
-              <button
-                className="not-complete-movement"
-                onClick={() => toggleCompleteNoLine(todo.id)}
-              >
-                Not Complete
-              </button> */}
 
               {todo.id === todoEditing ? (
-                // <button onClick={() => submitEdits(todo.id)}>
-                //   Submit Edits
-                // </button>
                 <AiFillEdit
                   onClick={() => submitEdits(todo.id)}
                   color="white"
@@ -223,56 +184,6 @@ function App() {
                 onClick={() => moveToBottom(todo.id)}
               />
             </div>
-            {/* <div className="todo-actions"> */}
-            {/* 
-                        {todo.id === todoEditing ? () : 
-                         (<FaEdit
-                         className="edit-movement"
-                         onClick={() => setTodoEditing(todo.id)}
-                       />)}
-                        <button className="button complete-movement">
-                          Complete
-                        </button>
-
-                      
-                        <FaEdit
-                          className="edit-movement"
-                          onClick={() => setTodoEditing(todo.id)}
-                        />
-                          <ImBin
-                          color="white"
-                          size="25px"
-                          onClick={() => deleteTodo(todo.id)}
-                          className="bin-movement"
-                        />
-                      </div>
-                    </div>
-                  )} */}
-
-            {/* {todoEditing === todo.id ? (
-                    <button
-                      onClick={() => submitEdits(todo.id)}
-                      className="button submit-edit"
-                    >
-                      Submit Edit
-                    </button>
-                  ) : ( */}
-            {/* <AiFillEdit
-                      onClick={() => editTodo(todo.id)}
-                      color="white"
-                      size="35px"
-                      className="submit-edit"
-                    />
-                    // <button */}
-
-            {/* onClick={() => setTodoEditing(todo.id)}
-                       className="button no-display"
-                   >
-                       Edit Todo
-                   </button> */}
-
-            {/* to.id specific which one to delete */}
-            {/* </div> */}
           </div>
         ))}
       </div>
